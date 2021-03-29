@@ -28,7 +28,10 @@
         <div class="icon">
           <i class="fa fa-lock"></i>
         </div>
-        <input type="password" class="input" placeholder="Senha" />
+        <input :type="input_type" class="input" placeholder="Senha" />
+        <div class="icon">
+          <a class="hidden-pass" v-on:click="password_control" href="#"><i :class="icon_pass"></i></a>
+        </div>
       </div>
 
       <div class="forgot">
@@ -41,7 +44,27 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      input_type: "password",
+      icon_pass: "fa fa-eye",
+    };
+  },
+
+  computed: {
+    isPassword() {
+      return this.input_type === "password", this.icon_pass === "fa fa-eye";
+    },
+  },
+
+  methods: {
+    password_control() {
+      this.input_type = this.isPassword ? "text" : "password";
+      this.icon_pass = this.isPassword ? "fa fa-eye-slash" : "fa fa-eye";
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -143,5 +166,9 @@ export default {};
 }
 .btn-login:hover {
   background-color: #4cb7a8;
+}
+.hidden-pass {
+  text-decoration: none;
+  color: #808080;
 }
 </style>
